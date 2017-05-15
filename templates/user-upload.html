@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Profile</title>
+<link href="../static/css/style.css" rel='stylesheet' type='text/css' />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../static/js/jquery.min.js"></script>
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/js/bootstrap.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+<script src="https://cdn.bootcss.com/layer/3.0.1/layer.js"></script>
+
+
+<style>
+
+</style>
+
+</head>
+<body>
+  {% include "nav.html" %}
+
+
+<div class="row" style="margin-top: 2em;margin-left: 1em;margin-right: 1em;">
+	{% for photo in photo_list %}
+  <div class="col-md-3" style="padding: 0;margin: 0;" onClick="location.href='/detail?file={{ photo.filename }}'">
+  	<img src="/static/assets/{{ photo.filename }}.JPG" alt="img"  />
+  </div>
+  {% endfor %}
+</div>
+  
+
+   
+ 
+
+  
+{% include "footer.html" %}
+</body>
+</html>
+

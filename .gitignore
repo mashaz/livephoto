@@ -1,0 +1,9 @@
+#compiled
+*.pyc
+
+#batabase
+*.db
+*.sqlite3
+
+#assets
+static/assets

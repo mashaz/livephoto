@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Post</title>
+	<link href="static/css/style.css" rel='stylesheet' type='text/css' />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" type="image/x-icon" href="static/images/logo.jpg" />
+	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+</script>
+<script src="https://cdn.apple-livephotoskit.com/lpk/1/livephotoskit.js">
+</script>
+<script src="static/js/jquery.min.js"></script>
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/js/bootstrap.js"></script>
+<!----webfonts---->
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+<script src="https://cdn.bootcss.com/layer/3.0.1/layer.js"></script>
+<script type="text/javascript">
+var $ = jQuery.noConflict();
+$(function() {
+	$('#activator').click(function(){
+		$('#box').animate({'top':'0px'},500);
+	});
+	$('#boxclose').click(function(){
+		$('#box').animate({'top':'-700px'},500);
+	});
+});
+$(document).ready(function(){
+				//Hide (Collapse) the toggle containers on load
+				$(".toggle_container").hide(); 
+				//Switch the "Open" and "Close" state per click then slide up/down (depending on open/close state)
+				$(".trigger").click(function(){
+					$(this).toggleClass("active").next().slideToggle("slow");
+						return false; //Prevent the browser jump to the link anchor
+					});
+			});
+
+</script>
+<script type="text/javascript">
+	//限制上传文件的类型和大小
+function validate_img(ele){
+    // 返回 KB，保留小数点后两位
+    //alert((ele.files[0].size/(1024*1024)).toFixed(2));
+    var file = ele.value;
+          
+    if(!/.(jpg|jpeg|JPG)$/.test(file)){
+      
+      layer.msg('文件格式不符合'); 
+           return false;
+           
+     }else{
+              
+         //alert((ele.files[0].size).toFixed(2));
+         //返回Byte(B),保留小数点后两位
+        if(((ele.files[0].size).toFixed(2))>=(2*1024*1024)){
+                 
+          layer.msg('请上传小于2M的图片'); 
+                 return false;
+         }
+     }     
+}
+</script>
+<style>
+.file-upload{
+	margin:auto;
+	text-align: center;
+	margin-top: 5em;
+	width: 30em;
+}
+</style>
+</head>
+<body>
+{% include "nav.html" %}
+			<div class="content">
+
+				<div class="file-upload">
+					<h2 style="text-align: center;"> 发表你的新LivePhoto<h2>
+						<hr>
+						<br>
+					<form method="post" action="/file/upload" enctype="multipart/form-data">
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1">状态</span>
+							<textarea class="form-control" id="exampleTextarea" rows="3" name="describtion" placeholder="这里风景很美"></textarea>
+						</div>
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1">定位</span>
+							<input type="text" class="form-control" placeholder="选填" aria-describedby="basic-addon1" name="location ">
+						</div>
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1">jpg 文件</span>
+							<input type="file" class="form-control"  aria-describedby="basic-addon1" name="jpg-file" id="jpg-file" onchange="Javascript:validate_img(this);">
+						</div>
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1">mov 文件</span>
+							<input type="file" class="form-control"  aria-describedby="basic-addon1" name="mov-file" id="mov-file">
+						</div>
+						
+
+						<br id="dividing-line">
+						<div class="alert alert-warning" role="alert" >
+  			<span style="font-size: 0.6em;"><strong>注意!</strong> jpg文件需小于2M，mov文件小于6M</span>
+				</div>
+						<input type="submit" class="btn btn-primary" value="POST"></input>
+					</form>
+				</div>
+			</div>
+			{% include "footer.html" %}
+	</body>
+	</html>
+

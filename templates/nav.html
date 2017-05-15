@@ -1,0 +1,43 @@
+	<div class="header" >
+	<div class="wrap">
+		<div class="logo">
+			<img src="http://i.imgur.com/WnxBmaT.jpg" onClick="location.href='/'"/>
+			 <!-- <a class="btn btn-success" href="/newpost" role="button" style="height:40px;">发表新照片 </a>  -->
+			<div class="btn-group">
+  		<a role="button" class="btn btn-success" href="/newpost" >发表新照片</a>
+  		<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 50px;">
+    <span class="sr-only">Toggle Dropdown</span>
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="#">Feel lucky?</a>
+    <a class="dropdown-item" onClick="location.href='?sort=time-desc'">按发表时间</a>
+    <a class="dropdown-item" onClick="location.href='?sort=star-desc'">按点赞数</a>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="#">关于</a>
+  </div>
+</div>
+
+		</div>
+		{# <div class="todo"></div> #}
+		<div style="float: right;margin-top: 1em;">
+			<div class="user">
+				<ul>
+					<li>
+						{% if not request.session.username %}
+						<a href="/account/login" style="text-decoration: none;"><img src="http://i.imgur.com/RBHcmAM.png" title="user-name" /><span>
+							登入
+							{% endif %}
+						</a>
+						{% if  request.session.username %}
+						<a href="/account/info" style="text-decoration: none;"><span>
+							{{ request.session.username }}</span></a>
+							<a href="/account/logout"><i class="fa fa-sign-out" aria-hidden="true" ></i></a>
+							{% endif %}
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="clear">
+			</div>
+		</div>
+	</div> 

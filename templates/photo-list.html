@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="https://cdn.apple-livephotoskit.com/lpk/1/livephotoskit.js"></script>
+        <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    </head>
+    <body>
+     <!--    <div
+            data-live-photo
+            data-photo-src="static/assets/1d7de21b333bfc72e494423790dae4f2.JPG"
+            data-video-src="static/assets/1d7de21b333bfc72e494423790dae4f2.mov"
+            style="width: 320px; height: 320px">            
+        </div> -->
+       
+        {% for photo in photo_list %}
+
+        <div
+            data-live-photo
+            data-photo-src="static/assets/{{ photo.filename }}.JPG"
+            data-video-src="static/assets/{{ photo.filename }}.mov"
+            style="width: 320px; height: 320px">            
+        </div>
+        <span><i class="fa fa-user-circle" aria-hidden="true"></i>UPLOADER : {% if photo.uploader %}{{ photo.uploader }}{% endif %}</span>
+        {% endfor %}
+    </body>
+</html>
+

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Profile</title>
+<link href="../static/css/style.css" rel='stylesheet' type='text/css' />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../static/js/jquery.min.js"></script>
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/js/bootstrap.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+<script src="https://cdn.bootcss.com/layer/3.0.1/layer.js"></script>
+
+
+<style>
+
+.user-profile{
+  margin: auto; /*bootstrap居中！*/
+  margin-top: 3em;
+  padding: 1em;
+  width: 20em;
+  display: block;
+}
+</style>
+
+</head>
+<body>
+  {% include "nav.html" %}
+
+
+
+  <div class="content">
+    <div class="user-profile">
+      <h4 style="text-align: center;">TA的个人资料</h4>
+      <hr>
+
+    <fieldset class="form-group">
+    <label for="exampleInputEmail1"> 用户名 : </label>
+  
+    <label for="exampleInputEmail1"> {{ user.username }}</label>
+  </fieldset>
+  
+<h4 style="text-align: center;">TA的上传</h4>
+      <hr>
+<fieldset class="form-group">
+    <label for="exampleInputEmail1"> 总上传数 : </label>
+  
+    <label for="exampleInputEmail1"> {{ user.upload_sum }}</label>
+        <a href="/file/show?user={{ user.username }}" style="text-decoration: none;float: right;">  查看 </a>
+
+    </fieldset>
+
+   
+ 
+
+  </div>
+  </div>
+{% include "footer.html" %}
+</body>
+</html>
+

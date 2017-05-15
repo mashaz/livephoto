@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>UserInfo</title>
+<link href="../static/css/style.css" rel='stylesheet' type='text/css' />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../static/js/jquery.min.js"></script>
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/js/bootstrap.js"></script>
+<!----webfonts---->
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+<!-- Global CSS for the page and tiles -->
+<link rel="stylesheet" href="../static/css/main.css">
+<script src="https://cdn.bootcss.com/layer/3.0.1/layer.js"></script>
+<script type="text/javascript">
+    function check(x)
+  {
+    var passwd1 = $('#password1').val();
+    var passwd2 = $('#password2').val();
+    if (passwd1!=passwd2) 
+    {
+      layer.msg("两次密码不一致");
+    }
+    if (passwd1==passwd2) 
+    {
+      layer.msg("密码通过");
+    }
+  }
+</script>
+<style>
+
+.user-profile{
+  margin: auto; /*bootstrap居中！*/
+  margin-top: 3em;
+  padding: 1em;
+  width: 20em;
+  display: block;
+}
+</style>
+
+</head>
+<body>
+  {% include "nav.html" %}
+
+
+
+  <div class="content">
+    <div class="user-profile">
+      <h4 style="text-align: center;">个人资料</h4>
+      <hr>
+    <form method="post" action="/account/change">
+    <fieldset class="form-group">
+    <label for="exampleInputEmail1"> 用户名 :  {{ user.username }}</label>
+    <br>
+        <small class="text-muted">暂时不提供用户名修改</small>
+
+   
+  </fieldset>
+  <fieldset class="form-group">
+    <label for="exampleInputEmail1" > 邮箱 : {{ user.email }}</label>
+    <input style="display:none"><!-- for disable autocomplete on chrome -->
+    <input type="email" class="form-control"  placeholder="新邮箱" autocomplete="off" name="email">
+    <small class="text-muted">不修改无需输入</small>
+  </fieldset>
+   <h4 style="text-align: center;">我的上传</h4>
+   <hr>
+  <fieldset class="form-group">
+    <label for="exampleInputEmail1"> 总上传数 : </label>
+  
+    <label for="exampleInputEmail1"> {{ user.upload_sum }}</label>
+    <a href="/file/show?user={{ user.username }}" style="text-decoration: none;float: right;">  查看 </a>
+    </fieldset>
+
+  <fieldset class="form-group">
+  <h4 style="text-align: center;">更改密码</h4>
+  <hr>
+    <label for="exampleInputPassword1">输入密码</label>
+    <input style="display:none"><!-- for disable autocomplete on chrome -->
+    <input type="password" class="form-control"  placeholder="新密码" autocomplete="off" name="password1" id="password1" onChange="check(this.id);">
+        <small class="text-muted" >不修改无需输入</small>
+
+  </fieldset>
+    <fieldset class="form-group">
+
+    <label for="exampleInputPassword1">确认密码</label>
+    <input style="display:none"><!-- for disable autocomplete on chrome -->
+    <input type="password" class="form-control"  placeholder="新密码" autocomplete="off"
+    name="password2" id="password2" onChange="check(this.id);">
+    <small class="text-muted">不修改无需输入</small>
+
+  </fieldset>
+ 
+ <h4 style="text-align: center;">更改头像</h4>
+  <hr>
+  <fieldset class="form-group">
+    
+    <input type="file" class="form-control-file" id="exampleInputFile" >
+    <small class="text-muted">你的头像/暂未实现</small>
+  </fieldset>
+  
+  <button type="submit" class="btn btn-primary" style="float: right;">确认修改</button>
+</form>
+  </div>
+  </div>
+  <br><br>
+{% include "footer.html" %}
+</body>
+</html>

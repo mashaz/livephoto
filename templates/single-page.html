@@ -1,0 +1,240 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Detail</title>
+	<link href="static/css/style.css" rel='stylesheet' type='text/css' />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" type="image/x-icon" href="static/images/logo.jpg" />
+	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+</script>
+<script src="https://cdn.apple-livephotoskit.com/lpk/1/livephotoskit.js">
+</script>
+<script src="static/js/jquery.min.js"></script>
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/js/bootstrap.js"></script>
+<!----webfonts---->
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+<script src="https://cdn.bootcss.com/layer/3.0.1/layer.js"></script>
+
+<script type="text/javascript">
+var $ = jQuery.noConflict();
+$(function() {
+	$('#activator').click(function(){
+		$('#box').animate({'top':'0px'},500);
+	});
+	$('#boxclose').click(function(){
+		$('#box').animate({'top':'-700px'},500);
+	});
+});
+
+$(document).ready(function(){
+				//Hide (Collapse) the toggle containers on load
+				$(".toggle_container").hide(); 
+				//Switch the "Open" and "Close" state per click then slide up/down (depending on open/close state)
+				$(".trigger").click(function(){
+					$(this).toggleClass("active").next().slideToggle("slow");
+						return false; //Prevent the browser jump to the link anchor
+					});
+			});
+</script>
+<script type="text/javascript">
+	function star_login_check()
+	{
+		{% if not request.session.username %}
+		layer.msg('游客无法点赞,请登入!');
+		{% else %}
+		location.href="/star?file={{ photo.filename }}"
+		{% endif %}
+		
+	};
+	function input_blank_check()
+	{
+		var name = $("#comment-name").val();
+		var email = $("#comment-email").val();
+		var comment = $("comment").val();
+		if (name.length<4 || name.length>20 || email.length<4 ||email.length>30 ||comment.length>100 || comment.length<4)
+		{
+			layer.msg('用户名，邮箱或评论不合法');
+		}
+		else
+		{
+			
+		}
+	};
+// 	function show_float(x)
+// 	{
+// 		layer.open({
+//   		title: 'LivePhoto详情',
+//   		content: '<img src="/static/assets/{{ photo.filename }}.JPG" />'
+// });   };
+// function show_star_owner(x)
+// {
+// layer.open({
+//   		title: '点赞详情',
+//   		content: '<div id="star_boy" >
+// 	{% if stars %}
+// 	{% for star in stars %}
+// 	<span style="font-size: 0.8em;">{{ star.username }}&nbsp</span>
+// 	{% endfor %}
+// 	<span style="font-size: 0.8em;">等</span>
+// 	{% endif %}
+// </div>'
+// });
+// }  
+	
+</script>
+<script type="text/javascript">
+	function change_color()
+	{
+		alert('x');
+		//$(x).css('color','#5c93ed')
+	};
+</script>
+</head>
+<body>
+
+
+{% include "nav.html" %}
+<div>
+	<div class="wrap" >
+		<div class="single-page">
+			<div class="single-page-artical" >
+				<div class="artical-content" style="text-align: center;" onClick="show_float(this);" >
+					<div
+					data-live-photo
+					data-photo-src="/static/assets/{{ photo.filename }}.JPG"
+					data-video-src="/static/assets/{{ photo.filename }}.mov"
+					style="width: 800px; height: 800px;margin:auto;">            
+				</div>
+				<div class="photo-describe" style="padding:4em;">
+					<br><br><br>
+				
+				<p style="font-size: 1.2em;">{{ photo.describe }}</p> 
+				<br><br>
+				<div style="text-align: right;">
+				<i class="fa fa-location-arrow" aria-hidden="true"></i>&nbsp<span>
+				{% if photo.location %}
+				{{ photo.location }}
+				{% else %}
+				可能是来自火星
+				{% endif %}</span>
+				</div>
+				<div style="text-align: right;">
+				<i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp<span>{{ photo.time }}  UTC</span>
+				</div>
+			</div>
+			</div>
+			<div class="artical-links">
+				<ul style="padding-top:0.8em;">
+					<li><a href="/account/profile?username={{ photo.uploader }}" style="text-decoration: none;"><i class="fa fa-2x fa-cloud-upload" aria-hidden="true"></i>
+					<span style="font-size: 1.5em;">{{ photo.uploader }}</span></a>
+					</li>
+					{% if request.session.username == photo.uploader or request.session.username == 'mashaz' %}
+					<!-- 删除权限 -->
+					<li><a href="/file/delete?fid={{ photo.filename }}" style="text-decoration: none;"><i class="fa fa-2x fa-times" aria-hidden="true"></i>
+						<span style="font-size: 1.5em;">删除</span></a></li>
+					</li>
+					{% endif %}
+				</ul>
+			</div>
+			<div class="share-artical">
+				<ul>
+					<!--<li><a href="#"><img src="static/images/facebooks.png" title="facebook">Facebook</a></li>
+					 <li><a href="#"><img src="static/images/twiter.png" title="Twitter">Twiiter</a></li>
+					<li><a href="#"><img src="static/images/google+.png" title="google+">Google+</a></li>
+					-->
+					  <!-- href="/star?file={{ photo.filename }}" -->
+					<li>
+						{% if not is_star %}
+						<a href="#" onClick="star_login_check()" style="text-decoration: none;">
+						<i class="fa fa-3x fa-thumbs-up" aria-hidden="true" ></i>
+						</a>
+						{% else %}
+						<i class="fa fa-3x fa-thumbs-up" aria-hidden="true" style="color:#5c93ed;"></i>
+						<span style="color:grey;" onClick="show_star_owner(this);">包括你等
+						{% endif %}
+					
+					{{ star_sum }}人觉得很赞</span></li>
+					{% if stars %}
+					{% for star in stars %}
+					<span style="font-size: 0.8em;">{{ star.username }}&nbsp</span>
+					{% endfor %}
+					<span style="font-size: 0.8em;">等</span>
+					{% endif %}
+				</ul>
+			</div>
+			<div class="clear"> </div>
+		</div>
+
+		<div class="comment-section">
+			<div class="grids_of_2">
+				<h2>评论</h2>
+				{% if not comments %}
+				<span>暂时没有评论</span>
+				{% endif %}
+				{% for comment in comments %}
+				<div class="grid1_of_2">
+					<div class="grid_img">
+						<a href="/account/profile?username={{ comment.name }}"><img src="static/images/user_female.png" alt=""></a>
+					</div>
+					<div class="grid_text">
+						<h4 class="style1 list"><a href="/account/profile?username={{ comment.name }}" style="text-decoration: none;" >{{ comment.name }}</a></h4>
+						<h3 class="style">{{ comment.time }} UTC</h3>
+						<p class="para top"> {{ comment.content }}</p>
+						<!-- <a href="" class="btn1">Click to Reply</a> -->
+					</div>
+					<div class="clear"></div>
+				</div>
+				{% endfor %}
+				
+				<!-- <div class="grid1_of_2 left">
+					<div class="grid_img">
+						<a href=""><img src="static/images/pic10.jpg" alt=""></a>
+					</div>
+					<div class="grid_text">
+						<h4 class="style1 list"><a href="#">Designer First</a></h4>
+						<h3 class="style">march 3, 2013 - 4.00 PM</h3>
+						<p class="para top"> All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable.</p>
+						<a href="" class="btn1">Click to Reply</a>
+					</div>
+					<div class="clear"></div>
+				</div>  -->						
+				<div class="artical-commentbox">
+					<h3>留下你宝贵的评论</h3>
+					<div class="table-form">
+						<form action="/comment-post/" method="post" name="post_comment">
+							{%  if not request.session.username %}
+							<div>
+								<label>Name<span>*</span></label>
+								<input type="text" value=" " name="username" id="comment-name" >
+							</div>
+							<div>
+								<label>Email<span>*</span></label>
+								<input type="text" value=" " name="email" id="comment-email" >
+							</div>
+							{% endif %}
+							<input type="hidden" name="filename" value="{{ photo.filename }}"> 
+							<div>
+								<label>Your Comment<span>*</span></label>
+								<textarea name="content" id="comment"> </textarea>	
+							</div>
+							<small>*为必填项目</small>
+							<br><br>
+							<input type="button" class="btn btn-primary" value="发表" onClick="input_blank_check()">
+						</form>
+					</div>
+					<div class="clear"> </div>
+				</div>			
+			</div>
+		</div>
+
+	</div>
+</div>
+</div>
+
+{% include "footer.html" %}
+
+</body>
+</html>
+

@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Register</title>
+  <link href="../static/css/style.css" rel='stylesheet' type='text/css' />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../static/js/jquery.min.js"></script>
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+  <link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">
+  <script src="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/js/bootstrap.js"></script>
+  <!----webfonts---->
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+  <!-- Global CSS for the page and tiles -->
+  <link rel="stylesheet" href="../static/css/main.css">
+
+  <script src="https://cdn.bootcss.com/layer/3.0.1/layer.js"></script>
+
+  <script>
+
+  $().ready(function() {
+    $("#commentForm").validate();
+  });
+  </script>
+
+<script type="text/javascript">
+    function check(x)
+  {
+    var passwd1 = $('#password').val();
+    var passwd2 = $('#password1').val();
+    if (passwd1!=passwd2) 
+    {
+      layer.msg("两次密码不一致");
+    }
+    if (passwd1==passwd2) 
+    {
+      layer.msg("密码通过");
+    }
+  };
+   function usernameCheck(x)
+  {
+    var username = $('#username').val();
+   
+    if (username.length<2)
+    { 
+  layer.msg("用户名不合法！");
+    }
+    else{
+       layer.msg("用户名通过！");
+    }
+  }
+</script>
+
+  <style>
+
+  .user-profile{
+   margin: auto; /*bootstrap居中！*/
+   margin-top: 3em;
+   padding: 1em;
+   width: 20em;
+   display: block;
+ }
+ </style>
+
+</head>
+<body>
+  {% include "nav.html" %}
+
+
+
+  <div class="content">
+    <div class="user-profile">
+      <h2 style="text-align: center;">注册</h2>
+      <hr>
+      <form  method='post' action="/account/register" class="form-horizontal" id="commentForm">
+        {% csrf_token %}  
+        <fieldset class="form-group">
+          <label for="exampleInputEmail1">用户名</label>
+          <input style="display:none"><!-- for disable autocomplete on chrome -->
+          <input type="text" class="form-control"  name="username" placeholder="Enter username" autocomplete="off" id="username" onChange="usernameCheck(this.id);">
+          <small class="text-muted">至少4位至多20位，汉字占3位，请勿使用特殊字符</small>
+        </fieldset>
+        {% if illegal_username %}
+        <div class="alert alert-danger" role="alert">
+         用户名不合法
+       </div>
+       {% endif %}
+       {% if exist_username %}
+       <div class="alert alert-danger" role="alert">
+         用户名已被注册
+       </div>
+       {% endif %}
+       <fieldset class="form-group">
+        <label for="exampleInputEmail1" > 邮箱</label>
+        <input style="display:none"><!-- for disable autocomplete on chrome -->
+        <input type="email" class="form-control" name="email" placeholder="Enter email" autocomplete="off">
+        <small class="text-muted">仅用于注册，自己可见</small>
+      </fieldset>
+      <fieldset class="form-group">
+
+        <label for="exampleInputPassword1">输入密码</label>
+        <input style="display:none"><!-- for disable autocomplete on chrome -->
+        <input type="password"  name="password"  id="password" class="form-control"  placeholder="Password" autocomplete="off" onChange="check(this.id);" >
+        <small class="text-muted">至少6位</small>
+      </fieldset>
+      {% if illegal_password %}
+      <div class="alert alert-danger" role="alert">
+       密码不合法
+     </div>
+     {% endif %}
+     <fieldset class="form-group">
+      <label for="exampleInputPassword1">确认密码</label>
+      <input style="display:none"><!-- for disable autocomplete on chrome -->
+      <input type="password" class="form-control"  name="password1"  placeholder="Password again" autocomplete="off" id="password1" onChange="check(this.id);">
+    </fieldset>
+    
+    <br>
+    <button type="submit" class="btn btn-primary" style="float: right;">Register</button>
+  </form>
+  <div>
+    
+    {% if exist_email %}
+    <div class="alert alert-danger" role="alert">
+     Email已被使用
+   </div>
+   {% endif %}
+
+ </div>
+</div>
+</div>
+<br><br>
+{% include "footer.html" %}
+</body>
+</html>
+
