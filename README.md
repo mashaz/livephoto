@@ -2,11 +2,25 @@
 
 * 一个基于Django的LivePhoto半社交网站
 
+### 功能
+
+> 上传LivePhoto
+> 评论
+> 点赞
+
 ### 使用
 
 ```bash
  python manage.py runserver
 ```
+
+### 引用
+
+> bootstrap4
+> jquery
+> font-awesome
+> layui
+> [LivePhotosKit JS](https://developer.apple.com/reference/livephotoskitjs/#symbols)
 
 ### 环境
 
