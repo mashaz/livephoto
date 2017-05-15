@@ -4,9 +4,9 @@
 
 ### 功能
 
-> 上传LivePhoto
-> 评论
-> 点赞
+* 上传LivePhoto
+* 评论
+* 点赞
 
 ### 使用
 
@@ -16,11 +16,11 @@
 
 ### 引用
 
-> bootstrap4
-> jquery
-> font-awesome
-> layui
-> [LivePhotosKit JS](https://developer.apple.com/reference/livephotoskitjs/#symbols)
+* bootstrap4
+* jquery
+* font-awesome
+* layui
+* [LivePhotosKit JS](https://developer.apple.com/reference/livephotoskitjs/#symbols)
 
 ### 环境
 
